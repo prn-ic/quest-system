@@ -1,0 +1,24 @@
+services:
+  quest-system-psql:
+    image: postgres:latest
+    container_name: quest-system-psql
+    hostname: psql
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 5432:5432
+  quest-system-api:
+    image: quest-system
+    hostname: quest-system
+    container_name: quest-system
+    restart: always
+    build:
+      context: ../
+      dockerfile: src/QuestSystem.WebApi/Dockerfile
+    depends_on:
+      - quest-system-psql
+    ports:
+      - 5001:8080
