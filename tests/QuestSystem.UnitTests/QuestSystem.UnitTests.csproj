@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\QuestSystem.Core\QuestSystem.Core.csproj" />
+  </ItemGroup>
+
 </Project>
