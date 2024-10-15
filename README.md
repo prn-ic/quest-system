@@ -187,7 +187,7 @@ Url - http://localhost:5001/api/quests/accept-quest (POST)
   "questId": "c09f9428-608f-4de5-84b2-dd6592f9a734"
 }'
 
-# code - 200
+# code - 400
 
 {
     "message": "Невозможно создать квест для пользователя, не подходит по условиям",
