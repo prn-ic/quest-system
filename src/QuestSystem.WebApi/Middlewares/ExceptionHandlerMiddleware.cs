@@ -30,14 +30,19 @@ public class ExceptionHandlerMiddleware(RequestDelegate next)
 
             await context.Response.WriteAsync(result);
         }
+        catch (ValidationException ex)
+        {
+            ErrorModel model = new() { Message = ex.Message, Errors = ex.Errors };
+            await HandleAsync(context, model);
+        }
         catch (DomainException ex)
         {
             ErrorModel model = new() { Message = ex.Message };
             await HandleAsync(context, model);
         }
-        catch (ValidationException ex)
+        catch (InvalidDataException ex)
         {
-            ErrorModel model = new() { Message = ex.Message, Errors = ex.Errors };
+            ErrorModel model = new() { Message = ex.Message };
             await HandleAsync(context, model);
         }
         catch (Exception)

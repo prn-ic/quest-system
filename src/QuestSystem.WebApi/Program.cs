@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using QuestSystem.Infrastructure.Data;
 using QuestSystem.WebApi.Middlewares;
@@ -17,8 +18,21 @@ public class Program
                     .Json
                     .ReferenceLoopHandling
                     .Ignore
-            );
-        ;
+            )
+            .ConfigureApiBehaviorOptions(options =>
+            {
+                options.InvalidModelStateResponseFactory = context =>
+                {
+                    var errors = context
+                        .ModelState.Values.SelectMany(x => x.Errors)
+                        .Select(x => x.ErrorMessage);
+
+                    return new BadRequestObjectResult(
+                        new { Message = "Your validation error code", Errors = errors }
+                    );
+                };
+            });
+
         builder.Services.AddApplicationLayer();
         builder.Services.AddInfrastructureLayer(builder.Configuration);
 
