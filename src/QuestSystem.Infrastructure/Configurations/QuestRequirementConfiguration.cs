@@ -9,5 +9,6 @@ public class QuestRequirementConfiguration : IEntityTypeConfiguration<QuestRequi
     public void Configure(EntityTypeBuilder<QuestRequirement> builder)
     {
         builder.Property(x => x.MinimumLevel).IsRequired();
+        builder.HasMany(x => x.PreviousQuests);
     }
 }

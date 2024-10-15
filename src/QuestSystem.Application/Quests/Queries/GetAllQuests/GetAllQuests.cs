@@ -20,7 +20,12 @@ public class GetAllQuestsQueryHandler : IRequestHandler<GetAllQuestsQuery, IEnum
         CancellationToken cancellationToken
     )
     {
-        var quests = await _context.Quests.ToListAsync(cancellationToken);
+        var quests = await _context
+            .Quests
+            .Include(x => x.Conditions)
+            .Include(x => x.Reward)
+            .Include(x => x.Requirement)
+            .ToListAsync(cancellationToken);
 
         return _mapper.Map<IEnumerable<QuestDto>>(quests);
     }

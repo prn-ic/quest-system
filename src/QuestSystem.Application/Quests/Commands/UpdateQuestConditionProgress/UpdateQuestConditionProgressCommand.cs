@@ -27,10 +27,18 @@ public class UpdateQuestConditionProgressCommandHandler
     )
     {
         var userQuest =
-            await _context.UserQuests.FirstOrDefaultAsync(
-                x => x.Id == request.UserQuestId,
-                cancellationToken
-            )
+            await _context
+                .UserQuests.Include(x => x.Status)
+                .Include(x => x.ConditionProgresses)
+                .ThenInclude(x => x.Condition)
+                .Include(x => x.Quest)
+                .ThenInclude(x => x.Conditions)
+                .Include(x => x.Quest)
+                .ThenInclude(x => x.Reward)
+                .Include(x => x.Quest)
+                .ThenInclude(x => x.Requirement)
+                .Include(x => x.Status)
+                .FirstOrDefaultAsync(x => x.Id == request.UserQuestId, cancellationToken)
             ?? throw new InvalidDataException(
                 "Не найден квест пользователя с идентификатором " + request.UserQuestId
             );

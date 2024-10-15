@@ -23,6 +23,7 @@ public class Quest : BaseEntity<Guid>
         ArgumentNullException.ThrowIfNull(reward);
         ArgumentNullException.ThrowIfNull(requirement);
 
+        Id = Guid.NewGuid();
         Title = title;
         Description = description;
         Conditions = conditions;

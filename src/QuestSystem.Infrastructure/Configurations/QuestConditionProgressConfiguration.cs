@@ -8,7 +8,6 @@ public class QuestConditionProgressConfiguration : IEntityTypeConfiguration<Ques
 {
     public void Configure(EntityTypeBuilder<QuestConditionProgress> builder)
     {
-        builder.Property(x => x.Condition).IsRequired();
         builder.Property(x => x.Progress).IsRequired();
     }
 }

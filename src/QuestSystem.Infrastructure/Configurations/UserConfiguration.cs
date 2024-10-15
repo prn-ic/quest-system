@@ -10,5 +10,6 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     {
         builder.Property(x => x.Name).HasMaxLength(25).IsRequired();
         builder.Property(x => x.Level).IsRequired();
+        builder.HasMany(x => x.UserQuests);
     }
 }

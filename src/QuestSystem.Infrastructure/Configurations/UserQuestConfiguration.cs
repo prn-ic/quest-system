@@ -8,6 +8,6 @@ public class UserQuestConfiguration : IEntityTypeConfiguration<UserQuest>
 {
     public void Configure(EntityTypeBuilder<UserQuest> builder)
     {
-        builder.Property(x => x.Quest).IsRequired();
+        builder.OwnsOne(x => x.Status);
     }
 }

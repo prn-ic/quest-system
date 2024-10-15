@@ -14,6 +14,7 @@ public class UserQuest : BaseEntity<Guid>
     {
         ArgumentNullException.ThrowIfNull(quest);
 
+        Id = Guid.NewGuid();
         Quest = quest;
         InitializeConditionProgresses(quest);
     }

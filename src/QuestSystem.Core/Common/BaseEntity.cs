@@ -7,7 +7,7 @@ public abstract class BaseEntity<TId> : IBaseEntity
     where TId : struct
 {
     private List<INotification> _domainEvents = new();
-    public TId Id { get; set; }
+    public TId Id { get; set; } = default;
 
     [NotMapped]
     public IReadOnlyCollection<INotification> DomainEvents => _domainEvents;

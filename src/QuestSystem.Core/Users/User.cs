@@ -14,6 +14,7 @@ public class User : BaseEntity<Guid>
         GuardException.ValidateStringValue(name, maxLength: 25);
         GuardException.ValidateUserLevel(level);
 
+        Id = Guid.NewGuid();
         Name = name;
         Level = level;
     }

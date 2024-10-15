@@ -7,7 +7,7 @@ using QuestSystem.Infrastructure.Interceptors;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class DependencyInjection
+public static partial class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureLayer(
         this IServiceCollection services,
@@ -22,13 +22,16 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(
             (sp, o) =>
             {
-                o.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 o.UseNpgsql(connection);
+                o.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 o.UseSnakeCaseNamingConvention();
+                o.EnableSensitiveDataLogging();
+                o.EnableDetailedErrors();
             }
         );
 
         services.AddScoped<IAppDbContext>(p => p.GetRequiredService<AppDbContext>());
+        services.AddScoped<AppDbContextInitializer>();
 
         return services;
     }
