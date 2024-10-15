@@ -1,4 +1,3 @@
-using NuGet.Frameworks;
 using QuestSystem.Core.Exceptions;
 using QuestSystem.Core.Quests;
 using QuestSystem.Core.Users;
@@ -14,7 +13,7 @@ public class UserQuestTests
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(0, new());
+        QuestRequirement requirement = new(0);
         Quest quest =
             new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
         user.AcceptQuest(quest);
@@ -34,7 +33,7 @@ public class UserQuestTests
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(0, new());
+        QuestRequirement requirement = new(0);
         Quest quest =
             new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
         user.AcceptQuest(quest);
@@ -54,7 +53,7 @@ public class UserQuestTests
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(0, new());
+        QuestRequirement requirement = new(0);
         Quest quest =
             new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
         user.AcceptQuest(quest);
@@ -76,7 +75,7 @@ public class UserQuestTests
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(0, new());
+        QuestRequirement requirement = new(0);
         Quest quest =
             new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
         user.AcceptQuest(quest);

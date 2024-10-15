@@ -72,7 +72,7 @@ public class AppDbContextInitializer
     {
         QuestCondition condition = new(conditionName, conditionDescription, conditionAmount);
         QuestReward reward = new(exp, currency);
-        QuestRequirement requirement = new(minimumLevel, prevQuests);
+        QuestRequirement requirement = new(minimumLevel);
         Quest quest = new(questName, questDescription, new() { condition }, reward, requirement);
 
         return quest;

@@ -205,7 +205,7 @@ namespace QuestSystem.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b6bc65db-f604-4f5d-809b-03f259449f28"),
+                            Id = new Guid("a8587ff3-432c-4d91-920e-d1d50c07558e"),
                             Level = 0,
                             Name = "Oleg"
                         });
@@ -245,7 +245,7 @@ namespace QuestSystem.Infrastructure.Migrations
             modelBuilder.Entity("QuestSystem.Core.Quests.Quest", b =>
                 {
                     b.HasOne("QuestSystem.Core.Quests.QuestRequirement", "Requirement")
-                        .WithMany("PreviousQuests")
+                        .WithMany()
                         .HasForeignKey("RequirementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -308,6 +308,11 @@ namespace QuestSystem.Infrastructure.Migrations
                                 .HasColumnType("uuid")
                                 .HasColumnName("id");
 
+                            b1.Property<string>("Status")
+                                .IsRequired()
+                                .HasColumnType("text")
+                                .HasColumnName("status");
+
                             b1.HasKey("UserQuestId");
 
                             b1.ToTable("user_quests");
@@ -326,11 +331,6 @@ namespace QuestSystem.Infrastructure.Migrations
             modelBuilder.Entity("QuestSystem.Core.Quests.Quest", b =>
                 {
                     b.Navigation("Conditions");
-                });
-
-            modelBuilder.Entity("QuestSystem.Core.Quests.QuestRequirement", b =>
-                {
-                    b.Navigation("PreviousQuests");
                 });
 
             modelBuilder.Entity("QuestSystem.Core.Users.User", b =>

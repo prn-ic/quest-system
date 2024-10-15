@@ -59,6 +59,8 @@ public class UserQuest : BaseEntity<Guid>
             throw new CannotUpdateConditionProgressException(undonedConditions.ToList());
         }
 
+        Status = QuestStatus.Finished;
+
         if (!GotReward)
         {
             user.IncreaseLevel(Quest.Reward.Experience);

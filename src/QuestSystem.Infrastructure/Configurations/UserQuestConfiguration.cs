@@ -8,6 +8,6 @@ public class UserQuestConfiguration : IEntityTypeConfiguration<UserQuest>
 {
     public void Configure(EntityTypeBuilder<UserQuest> builder)
     {
-        builder.OwnsOne(x => x.Status);
+        builder.OwnsOne(x => x.Status).Property(x => x.Status).HasColumnName("status");
     }
 }

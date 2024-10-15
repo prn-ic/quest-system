@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace QuestSystem.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddMissedLinks2 : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -108,6 +108,7 @@ namespace QuestSystem.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     quest_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    status = table.Column<string>(type: "text", nullable: false),
                     got_reward = table.Column<bool>(type: "boolean", nullable: false),
                     user_id = table.Column<Guid>(type: "uuid", nullable: true)
                 },
@@ -156,7 +157,7 @@ namespace QuestSystem.Infrastructure.Migrations
             migrationBuilder.InsertData(
                 table: "users",
                 columns: new[] { "id", "level", "name" },
-                values: new object[] { new Guid("b6bc65db-f604-4f5d-809b-03f259449f28"), 0, "Oleg" });
+                values: new object[] { new Guid("a8587ff3-432c-4d91-920e-d1d50c07558e"), 0, "Oleg" });
 
             migrationBuilder.CreateIndex(
                 name: "ix_quest_condition_quest_id",

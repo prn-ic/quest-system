@@ -4,7 +4,7 @@ using QuestSystem.Core.Users;
 
 namespace QuestSystem.UnitTests;
 
-public class UserTests 
+public class UserTests
 {
     [Fact]
     public void AcceptQuest_WithValidEnv_ShouldBeOk()
@@ -13,8 +13,9 @@ public class UserTests
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(0, new());
-        Quest quest = new("Повышение статуса жизни", "повышаем", new(){condition}, reward, requirement);
+        QuestRequirement requirement = new(0);
+        Quest quest =
+            new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
 
         // Act
         user.AcceptQuest(quest);
@@ -30,8 +31,9 @@ public class UserTests
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(1, new());
-        Quest quest = new("Повышение статуса жизни", "повышаем", new(){condition}, reward, requirement);
+        QuestRequirement requirement = new(1);
+        Quest quest =
+            new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
 
         // Act
         var func = () => user.AcceptQuest(quest);
@@ -39,20 +41,21 @@ public class UserTests
         // Assert
         Assert.Throws<CannotAddQuestToUserException>(func);
     }
+
     [Fact]
-    public void AcceptQuest_WithNotEnoughQuest_ThrowsCannotAddQuestToUserException()
+    public void AcceptQuest_QuestAlreadyFinished_ThrowsCannotAddQuestToUserException()
     {
         // Arrange
         User user = new("Oleg", 0);
         QuestCondition condition = new("Убить монстра", "Покакить в унитаз", 10);
         QuestReward reward = new(10, 10);
-        QuestRequirement requirement = new(1, new());
-        Quest quest = new("Повышение статуса жизни", "повышаем", new(){condition}, reward, requirement);
-        requirement.PreviousQuests.Add(quest);
-        Quest quest2 = new("Повышение статуса жизни", "повышаем", new(){condition}, reward, requirement);
+        QuestRequirement requirement = new(0);
+        Quest quest =
+            new("Повышение статуса жизни", "повышаем", new() { condition }, reward, requirement);
+        user.AcceptQuest(quest);
 
         // Act
-        var func = () => user.AcceptQuest(quest2);
+        var func = () => user.AcceptQuest(quest);
 
         // Assert
         Assert.Throws<CannotAddQuestToUserException>(func);
