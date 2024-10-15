@@ -28,7 +28,7 @@ public class Program
                         .Select(x => x.ErrorMessage);
 
                     return new BadRequestObjectResult(
-                        new { Message = "Your validation error code", Errors = errors }
+                        new { Message = "Ошибки валидации", Errors = errors }
                     );
                 };
             });
