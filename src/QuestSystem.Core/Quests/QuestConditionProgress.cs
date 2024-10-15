@@ -5,6 +5,9 @@ public class QuestConditionProgress : BaseEntity<int>
     public QuestCondition Condition { get; private set; }
     public int Progress { get; private set; }
 
+#pragma warning disable CS8618
+    protected QuestConditionProgress() { }
+#pragma warning restore CS8618
     public QuestConditionProgress(QuestCondition condition, int progress)
     {
         ArgumentNullException.ThrowIfNull(condition);

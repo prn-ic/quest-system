@@ -6,9 +6,12 @@ public class User : BaseEntity<Guid>
     public int Level { get; private set; }
     public List<UserQuest> UserQuests { get; private set; } = new();
 
+#pragma warning disable CS8618
+    protected User() { }
+#pragma warning restore CS8618
     public User(string name, int level)
     {
-        GuardException.ValidateStringValue(name);
+        GuardException.ValidateStringValue(name, maxLength: 25);
         GuardException.ValidateUserLevel(level);
 
         Name = name;

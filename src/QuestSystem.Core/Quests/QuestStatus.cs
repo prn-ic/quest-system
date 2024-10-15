@@ -8,7 +8,7 @@ public class QuestStatus : ValueObject
     public static QuestStatus InProgress => new("In Progress...");
     public static QuestStatus Completed => new("Completed");
     public static QuestStatus Finished => new("Finished");
-
+    
     public QuestStatus(string status)
     {
         _status = status;

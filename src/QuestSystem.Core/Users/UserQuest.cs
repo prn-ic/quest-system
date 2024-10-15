@@ -7,6 +7,9 @@ public class UserQuest : BaseEntity<Guid>
     public List<QuestConditionProgress> ConditionProgresses { get; private set; } = new();
     public bool GotReward { get; private set; } = false;
 
+#pragma warning disable CS8618
+    protected UserQuest() { }
+#pragma warning restore CS8618
     public UserQuest(Quest quest)
     {
         ArgumentNullException.ThrowIfNull(quest);

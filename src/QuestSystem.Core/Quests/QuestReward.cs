@@ -6,6 +6,9 @@ public class QuestReward : BaseEntity<int>
     public List<string> Items { get; private set; } = new();
     public int Currency { get; private set; }
 
+#pragma warning disable CS8618
+    protected QuestReward() { }
+#pragma warning restore CS8618
     public QuestReward(int experience, int currency)
     {
         GuardException.ValidateQuestRewardExperience(experience);

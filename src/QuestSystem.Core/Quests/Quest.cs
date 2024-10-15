@@ -7,7 +7,9 @@ public class Quest : BaseEntity<Guid>
     public List<QuestCondition> Conditions { get; private set; } = new();
     public QuestReward Reward { get; private set; }
     public QuestRequirement Requirement { get; private set; }
-
+#pragma warning disable CS8618 
+    protected Quest() { }
+#pragma warning restore CS8618 
     public Quest(
         string title,
         string description,
