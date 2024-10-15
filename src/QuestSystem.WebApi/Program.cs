@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using QuestSystem.Infrastructure.Data;
+using QuestSystem.WebApi.Middlewares;
 
 public class Program
 {
@@ -40,6 +41,7 @@ public class Program
         }
 
         app.UseHttpsRedirection();
+        app.UseMiddleware<ExceptionHandlerMiddleware>();
         app.MapControllers();
 
         app.Run();

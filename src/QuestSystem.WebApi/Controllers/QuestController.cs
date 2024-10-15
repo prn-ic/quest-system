@@ -46,9 +46,10 @@ public class QuestController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPatch("{userQuestId}")]
+    [HttpPatch("{questId}/user/{userId}")]
     public async Task<IActionResult> UpdateUserQuest(
-        Guid userQuestId,
+        Guid questId,
+        Guid userId,
         UpdateQuestRequest request,
         CancellationToken cancellationToken
     )
@@ -56,7 +57,8 @@ public class QuestController : ControllerBase
         var result = await _mediator.Send(
             new UpdateQuestConditionProgressCommand()
             {
-                UserQuestId = userQuestId,
+                QuestId = questId,
+                UserId = userId,
                 ConditionId = request.ConditionId,
                 Progress = request.Progress,
             },
