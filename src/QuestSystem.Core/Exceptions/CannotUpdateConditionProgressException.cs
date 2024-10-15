@@ -1,6 +1,3 @@
-using QuestSystem.Core.Common;
-using QuestSystem.Core.Quests;
-
 namespace QuestSystem.Core.Exceptions;
 
 public class CannotUpdateConditionProgressException(List<QuestConditionProgress> progresses) : DomainException

@@ -1,6 +1,4 @@
 using System.Linq.Expressions;
-using QuestSystem.Core.Common.Specifications;
-using QuestSystem.Core.Quests;
 
 namespace QuestSystem.Core.Users;
 

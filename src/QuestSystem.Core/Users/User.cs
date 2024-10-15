@@ -1,7 +1,3 @@
-using QuestSystem.Core.Common;
-using QuestSystem.Core.Exceptions;
-using QuestSystem.Core.Quests;
-
 namespace QuestSystem.Core.Users;
 
 public class User : BaseEntity<Guid>

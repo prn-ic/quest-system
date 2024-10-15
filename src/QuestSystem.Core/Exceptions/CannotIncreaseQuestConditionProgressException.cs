@@ -1,5 +1,3 @@
-using QuestSystem.Core.Common;
-
 namespace QuestSystem.Core.Exceptions;
 
 public class CannotIncreaseQuestConditionProgressException : DomainException
