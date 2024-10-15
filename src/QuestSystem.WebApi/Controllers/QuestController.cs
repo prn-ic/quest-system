@@ -19,10 +19,13 @@ public class QuestController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> Get(CancellationToken cancellationToken)
+    [HttpGet("user/{userId}")]
+    public async Task<IActionResult> Get(Guid userId, CancellationToken cancellationToken)
     {
-        var result = await _mediator.Send(new GetAllQuestsQuery(), cancellationToken);
+        var result = await _mediator.Send(
+            new GetAllQuestsQuery() { UserId = userId },
+            cancellationToken
+        );
         return Ok(result);
     }
 

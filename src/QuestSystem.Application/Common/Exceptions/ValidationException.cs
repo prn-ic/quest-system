@@ -2,7 +2,7 @@ namespace QuestSystem.Application.Common.Exceptions;
 
 public class ValidationException : Exception
 {
-    public IDictionary<string, string[]> Errors { get; }
+    public Dictionary<string, string[]> Errors { get; }
 
     public ValidationException()
         : base("Ошибка валидации модели. Смотрите подробнее ошибки и условия")

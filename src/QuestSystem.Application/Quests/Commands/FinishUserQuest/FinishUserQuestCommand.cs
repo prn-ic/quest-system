@@ -4,7 +4,7 @@ namespace QuestSystem.Application.Quests.Commands.FinishUserQuest;
 
 public class FinishUserQuestCommand : IRequest<UserQuestDto>
 {
-    public Guid UserQuestId { get; set; }
+    public Guid QuestId { get; set; }
     public Guid UserId { get; set; }
 }
 
@@ -48,9 +48,9 @@ public class FinishUserQuestCommandHandler : IRequestHandler<FinishUserQuestComm
             );
 
         var userQuest =
-            user.UserQuests.FirstOrDefault(x => x.Id == request.UserQuestId)
+            user.UserQuests.FirstOrDefault(x => x.Quest.Id == request.QuestId)
             ?? throw new InvalidDataException(
-                "Не найден квест пользователя с идентификатором " + request.UserQuestId
+                "Не найден квест пользователя с идентификатором " + request.QuestId
             );
 
         userQuest.Finish(user);

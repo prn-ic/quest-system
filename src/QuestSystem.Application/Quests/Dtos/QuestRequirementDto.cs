@@ -4,5 +4,4 @@ public class QuestRequirementDto
 {
     public int Id { get; set; }
     public int MinimumLevel { get; set; }
-    public List<QuestDto> PreviousQuests { get; set; } = new();
 }

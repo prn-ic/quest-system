@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using QuestSystem.Application.Common.Exceptions;
 using QuestSystem.Core.Common;
+using QuestSystem.Core.Exceptions;
+using QuestSystem.Core.Quests;
 
 namespace QuestSystem.WebApi.Middlewares;
 
@@ -13,6 +15,20 @@ public class ExceptionHandlerMiddleware(RequestDelegate next)
         try
         {
             await _next(context);
+        }
+        catch (CannotUpdateConditionProgressException ex)
+        {
+            var errors = new Dictionary<string, QuestConditionProgress[]>
+            {
+                { "Uncompleted Conditions", ex.Progresses.ToArray() },
+            };
+
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = 400;
+
+            var result = JsonConvert.SerializeObject(new { Message = ex.Message, Errors = errors });
+
+            await context.Response.WriteAsync(result);
         }
         catch (DomainException ex)
         {

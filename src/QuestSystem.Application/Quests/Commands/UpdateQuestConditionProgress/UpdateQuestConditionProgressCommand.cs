@@ -4,7 +4,8 @@ namespace QuestSystem.Application.Quests.Commands.UpdateQuestConditionProgress;
 
 public class UpdateQuestConditionProgressCommand : IRequest<QuestConditionProgressDto>
 {
-    public Guid UserQuestId { get; set; }
+    public Guid UserId { get; set; }
+    public Guid QuestId { get; set; }
     public int ConditionId { get; set; }
     public int Progress { get; set; }
 }
@@ -28,7 +29,9 @@ public class UpdateQuestConditionProgressCommandHandler
     {
         var userQuest =
             await _context
-                .UserQuests.Include(x => x.Status)
+                .Users.Where(x => x.Id == request.UserId)
+                .SelectMany(x => x.UserQuests)
+                .Include(x => x.Status)
                 .Include(x => x.ConditionProgresses)
                 .ThenInclude(x => x.Condition)
                 .Include(x => x.Quest)
@@ -38,9 +41,10 @@ public class UpdateQuestConditionProgressCommandHandler
                 .Include(x => x.Quest)
                 .ThenInclude(x => x.Requirement)
                 .Include(x => x.Status)
-                .FirstOrDefaultAsync(x => x.Id == request.UserQuestId, cancellationToken)
+                .Where(x => x.Quest.Id == request.QuestId)
+                .FirstOrDefaultAsync()
             ?? throw new InvalidDataException(
-                "Не найден квест пользователя с идентификатором " + request.UserQuestId
+                "Не найден квест пользователя с идентификатором пользователя" + request.UserId
             );
 
         userQuest.UpdateConditionProgress(request.ConditionId, request.Progress);

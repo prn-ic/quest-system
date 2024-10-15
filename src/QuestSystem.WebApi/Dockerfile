@@ -8,7 +8,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/QuestSystem.WebApi/QuestSystem.WebApi.csproj", "src/QuestSystem.WebApi/"]
-COPY ["src/QuestSystem.WebApi/QuestSystem.Application.csproj", "src/QuestSystem.Application/"]
+COPY ["src/QuestSystem.Application/QuestSystem.Application.csproj", "src/QuestSystem.Application/"]
 RUN dotnet restore "./src/QuestSystem.WebApi/QuestSystem.WebApi.csproj"
 COPY . .
 WORKDIR "/src/src/QuestSystem.WebApi"
