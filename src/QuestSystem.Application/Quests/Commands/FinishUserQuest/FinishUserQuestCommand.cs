@@ -1,3 +1,4 @@
+using QuestSystem.Application.Users.Extensions;
 using QuestSystem.Application.Users.Dtos;
 
 namespace QuestSystem.Application.Quests.Commands.FinishUserQuest;
@@ -26,22 +27,7 @@ public class FinishUserQuestCommandHandler : IRequestHandler<FinishUserQuestComm
     {
         var user =
             await _context
-                .Users.Include(x => x.UserQuests)
-                .ThenInclude(x => x.Status)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.ConditionProgresses)
-                .ThenInclude(x => x.Condition)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .ThenInclude(x => x.Conditions)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .ThenInclude(x => x.Reward)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .ThenInclude(x => x.Requirement)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Status)
+                .Users.IncludeAll()
                 .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken)
             ?? throw new InvalidDataException(
                 "Не найден пользователь с идентификатором " + request.UserId

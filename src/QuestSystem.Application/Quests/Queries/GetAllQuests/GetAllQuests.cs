@@ -1,4 +1,5 @@
 using QuestSystem.Application.Quests.Dtos;
+using QuestSystem.Application.Users.Extensions;
 
 namespace QuestSystem.Application.Quests.Queries.GetAllQuests;
 
@@ -25,17 +26,7 @@ public class GetAllQuestsQueryHandler : IRequestHandler<GetAllQuestsQuery, IEnum
     {
         var user =
             await _context
-                .Users.Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .ThenInclude(x => x.Conditions)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .ThenInclude(x => x.Reward)
-                .Include(x => x.UserQuests)
-                .ThenInclude(x => x.Quest)
-                .ThenInclude(x => x.Requirement)
+                .Users.IncludeAll()
                 .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken)
             ?? throw new InvalidDataException(
                 "Не найден пользователь с идентификатором " + request.UserId

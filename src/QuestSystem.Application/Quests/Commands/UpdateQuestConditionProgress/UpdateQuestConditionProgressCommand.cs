@@ -1,4 +1,5 @@
 using QuestSystem.Application.Quests.Dtos;
+using QuestSystem.Application.Users.Extensions;
 
 namespace QuestSystem.Application.Quests.Commands.UpdateQuestConditionProgress;
 
@@ -31,16 +32,7 @@ public class UpdateQuestConditionProgressCommandHandler
             await _context
                 .Users.Where(x => x.Id == request.UserId)
                 .SelectMany(x => x.UserQuests)
-                .Include(x => x.Status)
-                .Include(x => x.ConditionProgresses)
-                .ThenInclude(x => x.Condition)
-                .Include(x => x.Quest)
-                .ThenInclude(x => x.Conditions)
-                .Include(x => x.Quest)
-                .ThenInclude(x => x.Reward)
-                .Include(x => x.Quest)
-                .ThenInclude(x => x.Requirement)
-                .Include(x => x.Status)
+                .IncludeAll()
                 .Where(x => x.Quest.Id == request.QuestId)
                 .FirstOrDefaultAsync(cancellationToken)
             ?? throw new InvalidDataException(
