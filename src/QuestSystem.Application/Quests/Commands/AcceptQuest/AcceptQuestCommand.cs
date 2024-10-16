@@ -1,5 +1,6 @@
-using QuestSystem.Application.Users.Extensions;
+using QuestSystem.Application.Quests.Events;
 using QuestSystem.Application.Users.Dtos;
+using QuestSystem.Application.Users.Extensions;
 
 namespace QuestSystem.Application.Quests.Commands.AcceptQuest;
 
@@ -44,6 +45,7 @@ public class AcceptQuestCommandHandler : IRequestHandler<AcceptQuestCommand, Use
             );
 
         user.AcceptQuest(quest);
+        user.AddEvent(new UserQuestAcceptedEvent(user));
         await _context.UserQuests.AddAsync(user.UserQuests.Last(), cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 

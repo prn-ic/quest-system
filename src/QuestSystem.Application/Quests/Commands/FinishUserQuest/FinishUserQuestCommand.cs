@@ -1,5 +1,6 @@
-using QuestSystem.Application.Users.Extensions;
+using QuestSystem.Application.Quests.Events;
 using QuestSystem.Application.Users.Dtos;
+using QuestSystem.Application.Users.Extensions;
 
 namespace QuestSystem.Application.Quests.Commands.FinishUserQuest;
 
@@ -40,6 +41,7 @@ public class FinishUserQuestCommandHandler : IRequestHandler<FinishUserQuestComm
             );
 
         userQuest.Finish(user);
+        userQuest.AddEvent(new UserQuestFinishedEvent(userQuest));
         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<UserQuestDto>(userQuest);
