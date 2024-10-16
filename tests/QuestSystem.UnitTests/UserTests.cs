@@ -60,4 +60,34 @@ public class UserTests
         // Assert
         Assert.Throws<QuestAlreadyTakenToUserException>(func);
     }
+
+    [Fact]
+    public void IncreaseLevel_WithValidParameters_ShouldBeOk()
+    {
+        // Arrange
+        const int LEVEL_INCREASE_VALUE = 10;
+        User user = new("Oleg", 0);
+
+        // Act
+        user.IncreaseLevel(LEVEL_INCREASE_VALUE);
+
+        // Assert
+        Assert.Equal(LEVEL_INCREASE_VALUE, user.Level);
+    }
+
+    [Theory]
+    [InlineData(-1)]
+    public void IncreaseLevel_WithInvalidParameters_ThrowsArgumentOutOfRangeException(
+        int levelIncreaseValue
+    )
+    {
+        // Arrange
+        User user = new("Oleg", 0);
+
+        // Act
+        var func = () => user.IncreaseLevel(levelIncreaseValue);
+
+        // Assert
+        Assert.Throws<ArgumentOutOfRangeException>(func);
+    }
 }
