@@ -1,5 +1,4 @@
 using QuestSystem.Application.Quests.Dtos;
-using QuestSystem.Core.Users;
 
 namespace QuestSystem.Application.Quests.Queries.GetAllQuests;
 

@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using QuestSystem.Infrastructure.Data;
 using QuestSystem.WebApi;
 using QuestSystem.WebApi.Middlewares;
 
