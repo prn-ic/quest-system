@@ -58,7 +58,7 @@ public class AcceptQuestCommandHandler : IRequestHandler<AcceptQuestCommand, Use
             );
 
         user.AcceptQuest(quest);
-        await _context.UserQuests.AddAsync(user.UserQuests.Last());
+        await _context.UserQuests.AddAsync(user.UserQuests.Last(), cancellationToken);
         await _context.SaveChangesAsync(cancellationToken);
 
         return _mapper.Map<UserQuestDto>(user.UserQuests.Last());

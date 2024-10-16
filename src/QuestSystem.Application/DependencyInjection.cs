@@ -4,7 +4,7 @@ using QuestSystem.Application.Common.Behaviours;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static partial class DependencyInjection
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationLayer(this IServiceCollection services)
     {

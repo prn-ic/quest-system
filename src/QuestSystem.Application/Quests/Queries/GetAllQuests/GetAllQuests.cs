@@ -1,4 +1,5 @@
 using QuestSystem.Application.Quests.Dtos;
+using QuestSystem.Core.Users;
 
 namespace QuestSystem.Application.Quests.Queries.GetAllQuests;
 
@@ -24,7 +25,19 @@ public class GetAllQuestsQueryHandler : IRequestHandler<GetAllQuestsQuery, IEnum
     )
     {
         var user =
-            await _context.Users.FirstOrDefaultAsync(x => x.Id == request.UserId)
+            await _context
+                .Users.Include(x => x.UserQuests)
+                .ThenInclude(x => x.Quest)
+                .Include(x => x.UserQuests)
+                .ThenInclude(x => x.Quest)
+                .ThenInclude(x => x.Conditions)
+                .Include(x => x.UserQuests)
+                .ThenInclude(x => x.Quest)
+                .ThenInclude(x => x.Reward)
+                .Include(x => x.UserQuests)
+                .ThenInclude(x => x.Quest)
+                .ThenInclude(x => x.Requirement)
+                .FirstOrDefaultAsync(x => x.Id == request.UserId, cancellationToken)
             ?? throw new InvalidDataException(
                 "Не найден пользователь с идентификатором " + request.UserId
             );
@@ -34,7 +47,7 @@ public class GetAllQuestsQueryHandler : IRequestHandler<GetAllQuestsQuery, IEnum
             .Include(x => x.Requirement)
             .ToListAsync(cancellationToken);
 
-        quests.Except(user.UserQuests.Select(x => x.Quest).ToList());
+        quests = quests.Except(user.UserQuests.Select(x => x.Quest).ToList()).ToList();
 
         return _mapper.Map<IEnumerable<QuestDto>>(quests);
     }

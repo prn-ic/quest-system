@@ -42,7 +42,7 @@ public class UpdateQuestConditionProgressCommandHandler
                 .ThenInclude(x => x.Requirement)
                 .Include(x => x.Status)
                 .Where(x => x.Quest.Id == request.QuestId)
-                .FirstOrDefaultAsync()
+                .FirstOrDefaultAsync(cancellationToken)
             ?? throw new InvalidDataException(
                 "Не найден квест пользователя с идентификатором пользователя" + request.UserId
             );
