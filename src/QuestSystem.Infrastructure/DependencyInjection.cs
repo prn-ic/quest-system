@@ -35,4 +35,14 @@ public static class DependencyInjection
 
         return services;
     }
+
+    public static async Task InitializeDatabaseAsync(this IServiceProvider provider)
+    {
+        using (var scope = provider.CreateScope())
+        {
+            var initialiser = scope.ServiceProvider.GetRequiredService<AppDbContextInitializer>();
+            await initialiser.InitializeAsync();
+            await initialiser.SeedAsync();
+        }
+    }
 }

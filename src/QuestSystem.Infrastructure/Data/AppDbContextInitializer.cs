@@ -12,7 +12,19 @@ public class AppDbContextInitializer
         _context = context;
     }
 
-    public async Task InitializeAsync(CancellationToken cancellationToken = default)
+    public async Task InitializeAsync()
+    {
+        try
+        {
+            await _context.Database.MigrateAsync();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
+    public async Task SeedAsync(CancellationToken cancellationToken = default)
     {
         if (!await _context.Quests.AnyAsync())
         {
@@ -24,7 +36,6 @@ public class AppDbContextInitializer
                         10,
                         10,
                         0,
-                        new(),
                         "Убить монстра",
                         "Покакить в унитаз",
                         10
@@ -35,7 +46,6 @@ public class AppDbContextInitializer
                         20,
                         20,
                         1,
-                        new(),
                         "Убить монстра",
                         "Пописить в унитаз",
                         20
@@ -46,7 +56,6 @@ public class AppDbContextInitializer
                         30,
                         30,
                         2,
-                        new(),
                         "Убить монстра",
                         "Пописить и покакить в унитаз",
                         10
@@ -64,7 +73,6 @@ public class AppDbContextInitializer
         int exp,
         int currency,
         int minimumLevel,
-        List<Quest> prevQuests,
         string conditionName,
         string conditionDescription,
         int conditionAmount
