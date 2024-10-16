@@ -43,8 +43,11 @@ public class User : BaseEntity<Guid>
         var canCreateQuestSpec = new CanCreateQuestToUserSpecification(quest);
         bool existedQuest = UserQuests.Any(x => x.Quest.Id == quest.Id);
 
-        if (!canCreateQuestSpec.IsSatisfiedBy(this) || existedQuest)
+        if (!canCreateQuestSpec.IsSatisfiedBy(this))
             throw new CannotAddQuestToUserException();
+
+        if (existedQuest)
+            throw new QuestAlreadyTakenToUserException();
 
         UserQuest userQuest = new(quest);
         UserQuests.Add(userQuest);

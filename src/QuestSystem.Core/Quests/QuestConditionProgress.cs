@@ -20,7 +20,11 @@ public class QuestConditionProgress : BaseEntity<int>
     public void IncreaseProgress(int progress)
     {
         if (progress < 0 || (progress + Progress) > Condition.Amount)
-            throw new CannotIncreaseQuestConditionProgressException();
+            throw new CannotIncreaseQuestConditionProgressException(
+                Progress,
+                (progress + Progress),
+                Condition.Amount
+            );
 
         Progress += progress;
     }

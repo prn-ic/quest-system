@@ -43,7 +43,7 @@ public class UserTests
     }
 
     [Fact]
-    public void AcceptQuest_QuestAlreadyFinished_ThrowsCannotAddQuestToUserException()
+    public void AcceptQuest_QuestAlreadyFinished_ThrowsQuestAlreadyTakenToUserException()
     {
         // Arrange
         User user = new("Oleg", 0);
@@ -58,6 +58,6 @@ public class UserTests
         var func = () => user.AcceptQuest(quest);
 
         // Assert
-        Assert.Throws<CannotAddQuestToUserException>(func);
+        Assert.Throws<QuestAlreadyTakenToUserException>(func);
     }
 }
