@@ -35,6 +35,7 @@ public class GetAllQuestsQueryHandler : IRequestHandler<GetAllQuestsQuery, IEnum
             .Quests.Include(x => x.Conditions)
             .Include(x => x.Reward)
             .Include(x => x.Requirement)
+            .Where(x => x.Requirement.MinimumLevel <= user.Level)
             .ToListAsync(cancellationToken);
 
         quests = quests.Except(user.UserQuests.Select(x => x.Quest).ToList()).ToList();
